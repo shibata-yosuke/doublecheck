@@ -80,7 +80,35 @@ codex
 
 ## 4. このプラグインを入れる
 
-このリポジトリ一式を手元に置いた状態で、配布スクリプトを実行します。
+このプラグインは、GitHub をブラウザで開かなくても、1 行で導入できます。
+
+配布元:
+
+https://github.com/shibata-yosuke/doublecheck
+
+### 4-1. いちばん簡単な入れ方
+
+#### Windows 11
+
+PowerShell で次を実行します。
+
+```powershell
+irm https://raw.githubusercontent.com/shibata-yosuke/doublecheck/main/install-remote.ps1 | iex
+```
+
+#### macOS
+
+ターミナルで次を実行します。
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/shibata-yosuke/doublecheck/main/install-remote.sh | bash
+```
+
+この方法では、GitHub 上のこのリポジトリから必要ファイルを自動取得して、インストールまで進みます。
+
+### 4-2. 手元にこのフォルダがある場合の入れ方
+
+このリポジトリ一式をすでに手元へ置いている場合は、ローカルの配布スクリプトでも入れられます。
 
 ### Windows 11
 
@@ -172,6 +200,22 @@ doublecheck_2026_05_26_1437.md
 
 ## 7. アンインストール
 
+### 7-1. 1 行でアンインストールする
+
+#### Windows 11
+
+```powershell
+irm https://raw.githubusercontent.com/shibata-yosuke/doublecheck/main/uninstall-remote.ps1 | iex
+```
+
+#### macOS
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/shibata-yosuke/doublecheck/main/uninstall-remote.sh | bash
+```
+
+### 7-2. 手元にこのフォルダがある場合
+
 不要になったら、次のスクリプトで削除できます。
 
 ### Windows 11
@@ -198,24 +242,15 @@ doublecheck_2026_05_26_1437.md
 - [plugin/doublecheck](C:/Users/yamat/Documents/doublecheck/plugin/doublecheck): 配布されるプラグイン本体
 - [install-doublecheck.ps1](C:/Users/yamat/Documents/doublecheck/install-doublecheck.ps1): Windows 用インストーラ
 - [install-doublecheck.sh](C:/Users/yamat/Documents/doublecheck/install-doublecheck.sh): macOS 用インストーラ
+- [install-remote.ps1](C:/Users/yamat/Documents/doublecheck/install-remote.ps1): GitHub から直接入れる Windows 用ブートストラップ
+- [install-remote.sh](C:/Users/yamat/Documents/doublecheck/install-remote.sh): GitHub から直接入れる macOS 用ブートストラップ
 - [uninstall-doublecheck.ps1](C:/Users/yamat/Documents/doublecheck/uninstall-doublecheck.ps1): Windows 用アンインストーラ
 - [uninstall-doublecheck.sh](C:/Users/yamat/Documents/doublecheck/uninstall-doublecheck.sh): macOS 用アンインストーラ
+- [uninstall-remote.ps1](C:/Users/yamat/Documents/doublecheck/uninstall-remote.ps1): GitHub から直接実行する Windows 用アンインストーラ
+- [uninstall-remote.sh](C:/Users/yamat/Documents/doublecheck/uninstall-remote.sh): GitHub から直接実行する macOS 用アンインストーラ
 - [scripts/upsert_marketplace.py](C:/Users/yamat/Documents/doublecheck/scripts/upsert_marketplace.py): marketplace 登録・解除の共通処理
 - [tests](C:/Users/yamat/Documents/doublecheck/tests): テスト
 
-## 9. テストしたい人向け
-
-必要なら、次のコマンドでテストできます。
-
-```powershell
-C:\Users\yamat\AppData\Local\Programs\Python\Python313\python.exe -m pytest tests -q
-```
-
-プラグイン定義の検証:
-
-```powershell
-C:\Users\yamat\AppData\Local\Programs\Python\Python313\python.exe C:\Users\yamat\.codex\skills\.system\plugin-creator\scripts\validate_plugin.py C:\Users\yamat\Documents\doublecheck\plugin\doublecheck
-```
 
 ## 参考
 
