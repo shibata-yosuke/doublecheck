@@ -35,8 +35,9 @@ If any precondition fails, stop immediately and explain the exact reason.
 
 1. Read the questionnaire workbook through the `excel` MCP server.
 2. Open the preview URL through the `playwright` MCP server.
-3. Compare workbook structure and preview behavior.
-4. Review against these criteria:
+3. Capture screenshots for each relevant preview screen and perform visual inspection from those screenshots before making any pass/fail judgment.
+4. Compare workbook structure, preview behavior, and screenshot-based visual evidence.
+5. Review against these criteria:
    - easy-to-understand wording
    - no ambiguous expressions
    - consistent wording across related items
@@ -53,11 +54,12 @@ If any precondition fails, stop immediately and explain the exact reason.
    - targeting criteria aligned with the agreed respondent definition
    - pre/post comparability where applicable
    - media-plan alignment where applicable
-5. Summarize findings in the conversation.
-6. Save a Markdown report through `scripts/doublecheck_report.py`.
+6. Treat screenshot-based visual confirmation as mandatory for the preview review. If screenshots cannot be captured or visually checked, stop and report that the review could not be completed.
+7. Summarize findings in the conversation.
+8. Save a Markdown report through `scripts/doublecheck_report.py`.
 
 ## Output contract
 
 - Always emit a short summary in the conversation.
-- On successful execution, always write a report named `doublecheck_YYYY_MM_DD_HHmm.md`.
+- On successful execution, always write a Japanese report named `doublecheck_YYYY_MM_DD_HHmm.md`.
 - Mark checks as `unverified` when the information was not available instead of assuming success.
