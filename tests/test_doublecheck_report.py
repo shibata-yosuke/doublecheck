@@ -37,10 +37,10 @@ def test_render_report_includes_findings_and_unverified_items() -> None:
         generated_at=datetime(2026, 5, 26, 14, 37),
     )
 
-    assert "# Doublecheck Report" in report
-    assert "Issues found: 1" in report
+    assert "# Doublecheck チェックレポート" in report
+    assert "- 検出件数: 1" in report
     assert "### 1. [HIGH] Broken branch" in report
-    assert "- Unverified checks: 1" in report
+    assert "- 未確認項目数: 1" in report
     assert "- Media plan alignment" in report
 
 
@@ -55,4 +55,4 @@ def test_write_report_persists_markdown_file(tmp_path: Path) -> None:
     )
 
     assert report_path.name == "doublecheck_2026_05_26_1437.md"
-    assert report_path.read_text(encoding="utf-8").startswith("# Doublecheck Report")
+    assert report_path.read_text(encoding="utf-8").startswith("# Doublecheck チェックレポート")

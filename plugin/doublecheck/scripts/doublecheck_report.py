@@ -30,15 +30,15 @@ def render_report(
 ) -> str:
     timestamp = generated_at or datetime.now()
     lines = [
-        "# Doublecheck Report",
+        "# Doublecheck チェックレポート",
         "",
-        f"- Generated: {timestamp.isoformat(timespec='minutes')}",
+        f"- 生成日時: {timestamp.isoformat(timespec='minutes')}",
         f"- Preview URL: {preview_url}",
-        f"- Excel file: {excel_file}",
-        f"- Issues found: {len(findings)}",
-        f"- Unverified checks: {len(unverified)}",
+        f"- 調査票ファイル: {excel_file}",
+        f"- 検出件数: {len(findings)}",
+        f"- 未確認項目数: {len(unverified)}",
         "",
-        "## Findings",
+        "## 指摘事項",
         "",
     ]
 
@@ -48,21 +48,21 @@ def render_report(
                 [
                     f"### {index}. [{finding.severity.upper()}] {finding.title}",
                     "",
-                    f"- Criterion: {finding.criterion}",
-                    f"- Location: {finding.location}",
-                    f"- Evidence: {finding.evidence}",
-                    f"- Recommendation: {finding.recommendation}",
+                    f"- 観点: {finding.criterion}",
+                    f"- 箇所: {finding.location}",
+                    f"- 根拠: {finding.evidence}",
+                    f"- 修正案: {finding.recommendation}",
                     "",
                 ]
             )
     else:
-        lines.extend(["No issues found.", ""])
+        lines.extend(["指摘事項は見つかりませんでした。", ""])
 
-    lines.extend(["## Unverified Checks", ""])
+    lines.extend(["## 未確認項目", ""])
     if unverified:
         lines.extend(f"- {item}" for item in unverified)
     else:
-        lines.append("- None")
+        lines.append("- なし")
     lines.append("")
     return "\n".join(lines)
 

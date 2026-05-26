@@ -11,8 +11,9 @@
 1. 調査票の `.xlsx` ファイルを読む
 2. Freeasy の Preview 画面を開く
 3. 設問文、選択肢、分岐、スケール、画像の見やすさなどを確認する
-4. 問題点を会話画面に表示する
-5. 結果を `doublecheck_YYYY_MM_DD_HHmm.md` という Markdown ファイルでも保存する
+4. Preview画面はスクリーンショットを取得して、目視確認を行う
+5. 問題点を会話画面に表示する
+6. 結果を日本語の `doublecheck_YYYY_MM_DD_HHmm.md` という Markdown ファイルでも保存する
 
 ## 2. 事前に必要なもの
 
@@ -106,7 +107,22 @@ curl -fsSL https://raw.githubusercontent.com/shibata-yosuke/doublecheck/main/ins
 
 この方法では、GitHub 上のこのリポジトリから必要ファイルを自動取得して、インストールまで進みます。
 
-### 4-2. 手元にこのフォルダがある場合の入れ方
+### 4-2. インストール後にプラグインを有効化する
+
+インストールが終わっただけでは、すぐには使えないことがあります。
+
+`Codex CLI` を起動して、`/plugins` から `doublecheck` をオンにしてください。
+
+手順:
+
+1. ターミナルで `codex` を起動する
+2. `Codex CLI` の入力欄で `/plugins` と入力する
+3. プラグイン一覧から `doublecheck` を見つける
+4. `doublecheck` を `On` にする
+
+有効化が終わったら、通常どおり `doublecheck <Preview_URL> <Excelファイル名>` で使えます。
+
+### 4-3. 手元にこのフォルダがある場合の入れ方
 
 このリポジトリ一式をすでに手元へ置いている場合は、ローカルの配布スクリプトでも入れられます。
 
@@ -153,6 +169,8 @@ cd 調査票が入っているフォルダ
 codex
 ```
 
+もしまだ有効化していない場合は、先に `/plugins` を開いて `doublecheck` を `On` にしてください。
+
 ### 5-3. doublecheck を実行する
 
 `Codex CLI` の会話入力で、次の形で実行します。
@@ -172,7 +190,10 @@ doublecheck https://monitor.research-plus.net/enquete_preview_list/?e=xxxx quest
 正常に完了すると、次の 2 つが出ます。
 
 1. `Codex CLI` の画面に要点が表示される
-2. 実行したフォルダに Markdown レポートが保存される
+2. 実行したフォルダに日本語の Markdown レポートが保存される
+
+また、Preview 画面については、スクリーンショットを使った目視確認を行う前提です。  
+スクリーンショットが取得できない場合や、見た目を確認できない場合は、レビュー完了扱いにしない運用です。
 
 保存されるファイル名の例:
 

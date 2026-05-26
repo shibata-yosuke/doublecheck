@@ -29,6 +29,13 @@ def test_validate_inputs_accepts_valid_url_and_xlsx(tmp_path: Path) -> None:
     assert validated.excel_path == workbook.resolve()
 
 
+def test_validate_preview_url_accepts_preview_style_url() -> None:
+    assert (
+        MODULE.validate_preview_url("https://monitor.research-plus.net/enquete_preview_list/?e=1")
+        == "https://monitor.research-plus.net/enquete_preview_list/?e=1"
+    )
+
+
 def test_validate_inputs_rejects_invalid_url(tmp_path: Path) -> None:
     workbook = tmp_path / "questionnaire.xlsx"
     workbook.write_text("stub", encoding="utf-8")
