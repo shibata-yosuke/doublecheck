@@ -59,11 +59,38 @@ def upsert_marketplace(
     return path
 
 
+def remove_marketplace_entry(
+    marketplace_path: str | Path,
+    plugin_name: str = "doublecheck",
+) -> Path:
+    path = Path(marketplace_path)
+    if not path.exists():
+        return path
+
+    payload = load_marketplace(path)
+    plugins = payload.get("plugins", [])
+    if not isinstance(plugins, list):
+        raise ValueError("marketplace.json field 'plugins' must be a list")
+
+    payload["plugins"] = [
+        entry
+        for entry in plugins
+        if not (isinstance(entry, dict) and entry.get("name") == plugin_name)
+    ]
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return path
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Create or update the personal Codex marketplace entry for doublecheck."
+        description="Create, update, or remove the personal Codex marketplace entry for doublecheck."
     )
     parser.add_argument("marketplace_path")
+    parser.add_argument(
+        "--mode",
+        choices=("install", "uninstall"),
+        default="install",
+    )
     parser.add_argument("--plugin-name", default="doublecheck")
     parser.add_argument("--source-path", default="./plugins/doublecheck")
     return parser
@@ -72,11 +99,17 @@ def build_argument_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_argument_parser()
     args = parser.parse_args(argv)
-    upsert_marketplace(
-        marketplace_path=args.marketplace_path,
-        plugin_name=args.plugin_name,
-        source_path=args.source_path,
-    )
+    if args.mode == "install":
+        upsert_marketplace(
+            marketplace_path=args.marketplace_path,
+            plugin_name=args.plugin_name,
+            source_path=args.source_path,
+        )
+    else:
+        remove_marketplace_entry(
+            marketplace_path=args.marketplace_path,
+            plugin_name=args.plugin_name,
+        )
     return 0
 
 

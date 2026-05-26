@@ -53,3 +53,50 @@ def test_upsert_marketplace_replaces_existing_doublecheck_entry(tmp_path: Path) 
     payload = json.loads(marketplace_path.read_text(encoding="utf-8"))
     assert len(payload["plugins"]) == 1
     assert payload["plugins"][0]["source"]["path"] == "./plugins/doublecheck"
+
+
+def test_remove_marketplace_entry_deletes_only_target_plugin(tmp_path: Path) -> None:
+    marketplace_path = tmp_path / "marketplace.json"
+    marketplace_path.write_text(
+        json.dumps(
+            {
+                "name": "personal",
+                "interface": {"displayName": "Personal"},
+                "plugins": [
+                    {
+                        "name": "doublecheck",
+                        "source": {"source": "local", "path": "./plugins/doublecheck"},
+                        "policy": {
+                            "installation": "AVAILABLE",
+                            "authentication": "ON_INSTALL",
+                        },
+                        "category": "Productivity",
+                    },
+                    {
+                        "name": "other-plugin",
+                        "source": {"source": "local", "path": "./plugins/other-plugin"},
+                        "policy": {
+                            "installation": "AVAILABLE",
+                            "authentication": "ON_INSTALL",
+                        },
+                        "category": "Productivity",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    MODULE.remove_marketplace_entry(marketplace_path)
+
+    payload = json.loads(marketplace_path.read_text(encoding="utf-8"))
+    assert [entry["name"] for entry in payload["plugins"]] == ["other-plugin"]
+
+
+def test_remove_marketplace_entry_keeps_missing_file_unchanged(tmp_path: Path) -> None:
+    marketplace_path = tmp_path / "missing-marketplace.json"
+
+    result = MODULE.remove_marketplace_entry(marketplace_path)
+
+    assert result == marketplace_path
+    assert not marketplace_path.exists()
