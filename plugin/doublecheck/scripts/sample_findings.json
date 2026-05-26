@@ -1,0 +1,18 @@
+[
+  {
+    "severity": "high",
+    "criterion": "skip logic",
+    "title": "TV non-viewers can still reach TV ad questions",
+    "location": "Q12 -> Q13",
+    "evidence": "Preview shows Q13 after selecting 'I do not watch TV' in Q12.",
+    "recommendation": "Update the branch so TV ad follow-up questions only appear for viewers."
+  },
+  {
+    "severity": "medium",
+    "criterion": "scale direction",
+    "title": "Agreement scale is reversed on one matrix row",
+    "location": "Q21 matrix",
+    "evidence": "Most rows go positive-to-negative, but the third row is negative-to-positive.",
+    "recommendation": "Normalize every row to the same scale direction."
+  }
+]

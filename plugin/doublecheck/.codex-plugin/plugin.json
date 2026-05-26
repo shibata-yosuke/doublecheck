@@ -1,0 +1,29 @@
+{
+  "name": "doublecheck",
+  "version": "0.1.0",
+  "description": "Survey preview double-check plugin for Codex CLI.",
+  "author": {
+    "name": "yamato"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Doublecheck",
+    "shortDescription": "Review a survey preview against its questionnaire workbook.",
+    "longDescription": "Doublecheck compares a Freeasy preview URL with an Excel questionnaire and produces a structured review report.",
+    "developerName": "yamato",
+    "category": "Productivity",
+    "capabilities": [
+      "survey-review",
+      "excel-analysis",
+      "browser-automation"
+    ],
+    "defaultPrompt": "Run doublecheck against a preview URL and questionnaire workbook."
+  },
+  "keywords": [
+    "survey",
+    "excel",
+    "playwright",
+    "review"
+  ]
+}
